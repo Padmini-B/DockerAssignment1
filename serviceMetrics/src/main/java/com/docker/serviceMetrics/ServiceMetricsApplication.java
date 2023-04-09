@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class ServiceMetricsApplication {
+	
+	@Autowired
+	private Environment env;
+	
 	@GetMapping(value="/metrics")
 	public String getMessage() {
-		String url="jdbc:mysql://localhost:3306/docker_db";
-        String user="root";
-        String password="paddu@18";
+		String url=env.getProperty("spring.datasource.url");
+        String user=env.getProperty("spring.datasource.username");
+        String password=env.getProperty("spring.datasource.password");
         String metrics = "";
 		try{
             Class.forName("com.mysql.cj.jdbc.Driver");
