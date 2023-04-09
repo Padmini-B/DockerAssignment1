@@ -19,7 +19,7 @@ public class ServiceUIController<Microservice> {
 	@GetMapping("/square")
 	public ModelAndView square(@RequestParam("num")int num,Model model)
 	{
-		int square=this.restTemplate.getForObject("http://localhost:9091/square/"+num,int.class);
+		int square=this.restTemplate.getForObject("http://square:8081/square/"+num,int.class);
 		ModelAndView modelAndView = new ModelAndView("square");
 		System.out.println(square);
 	    modelAndView.addObject("response", "Square of " + num +": " +square);
@@ -30,7 +30,7 @@ public class ServiceUIController<Microservice> {
 	@GetMapping("/cube")
 	public ModelAndView cube(@RequestParam("num")int num)
 	{
-		int cube=this.restTemplate.getForObject("http://localhost:9092/cube/"+num,int.class);
+		int cube=this.restTemplate.getForObject("http://cube:8082/cube/"+num,int.class);
 		ModelAndView modelAndView = new ModelAndView("cube");
 		modelAndView.addObject("response","Cube of " + num +": " + cube);
 		modelAndView.setViewName("index.html");
@@ -39,7 +39,7 @@ public class ServiceUIController<Microservice> {
 	@GetMapping("/fibonacci")
 	public ModelAndView fibonacci(@RequestParam("num")int num)
 	{
-		int fibonacci=this.restTemplate.getForObject("http://localhost:9093/fibonacci/"+num,int.class);
+		int fibonacci=this.restTemplate.getForObject("http://fibonacci:8083/fibonacci/"+num,int.class);
 		ModelAndView modelAndView = new ModelAndView("fibonacci");
 		modelAndView.addObject("response","Fibonacci of " + num +": " +  fibonacci);
 		modelAndView.setViewName("index.html");
@@ -48,7 +48,7 @@ public class ServiceUIController<Microservice> {
 	@GetMapping("/metrics")
 	public ModelAndView metrics()
 	{
-		String metrics=this.restTemplate.getForObject("http://localhost:9094/metrics",String.class);
+		String metrics=this.restTemplate.getForObject("http://metrics:8084/metrics",String.class);
 		ModelAndView modelAndView = new ModelAndView("metrics");
 		modelAndView.addObject("response","Metrics: " +  metrics);
 		modelAndView.setViewName("index.html");

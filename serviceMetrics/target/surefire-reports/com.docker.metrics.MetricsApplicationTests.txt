@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.docker.metrics.MetricsApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.153 s <<< FAILURE! - in com.docker.metrics.MetricsApplicationTests
+com.docker.metrics.MetricsApplicationTests  Time elapsed: 1.151 s  <<< ERROR!
+java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
+
