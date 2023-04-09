@@ -1,0 +1,86 @@
+version: '3'
+services:
+  mysql_db:
+    container_name: mysql_db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: docker_db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_HOST: mysql_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3307:3306
+    volumes:
+      - db:/var/lib/mysql
+  ui:
+    container_name: ui-service
+    build: 
+      context: ./serviceUI
+      dockerfile: Dockerfile
+    ports:
+      - 7070:6060
+    depends_on:
+      - square
+      - cube
+      - fibonacci
+      - metrics
+  square:
+    container_name: square-service
+    build: 
+      context: ./serviceSquare
+      dockerfile: Dockerfile
+    ports:
+      - 9091:8081
+    environment:
+      - MYSQL_HOST=mysql_db
+      - MYSQL_PORT=3307
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - mysql_db
+  cube:
+    container_name: cube-service
+    build: 
+      context: ./serviceCube
+      dockerfile: Dockerfile
+    ports:
+      - 9092:8082
+    environment:
+      - MYSQL_HOST=mysql_db
+      - MYSQL_PORT=3307
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - mysql_db
+  fibonacci:
+    container_name: fibonacci-service
+    build: 
+      context: ./serviceFibonacci
+      dockerfile: Dockerfile
+    ports:
+      - 9093:8083
+    environment:
+      - MYSQL_HOST=mysql_db
+      - MYSQL_PORT=3307
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - mysql_db
+  metrics:
+    container_name: metrics-service
+    build: 
+      context: ./serviceMetrics
+      dockerfile: Dockerfile
+    ports:
+      - 9094:8084
+    environment:
+      - MYSQL_HOST=mysql_db
+      - MYSQL_PORT=3307
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - mysql_db
+volumes:
+  db:
