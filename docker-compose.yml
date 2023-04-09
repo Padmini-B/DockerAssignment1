@@ -3,15 +3,12 @@ services:
   mysql_db:
     container_name: mysql_db
     image: mysql
-    restart: always
+    restart: unless-stopped
     environment:
-      MYSQL_DATABASE: docker_db
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_HOST: mysql_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: docker_db
     ports:
-      - 3307:3306
+      - 3307:3307
     volumes:
       - db:/var/lib/mysql
   ui:
@@ -20,19 +17,14 @@ services:
       context: ./serviceUI
       dockerfile: Dockerfile
     ports:
-      - 7070:6060
-    depends_on:
-      - square
-      - cube
-      - fibonacci
-      - metrics
+      - 7070:7070
   square:
     container_name: square-service
     build: 
       context: ./serviceSquare
       dockerfile: Dockerfile
     ports:
-      - 9091:8081
+      - 8081:8081
     environment:
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3307
@@ -46,7 +38,7 @@ services:
       context: ./serviceCube
       dockerfile: Dockerfile
     ports:
-      - 9092:8082
+      - 8082:8082
     environment:
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3307
@@ -60,7 +52,7 @@ services:
       context: ./serviceFibonacci
       dockerfile: Dockerfile
     ports:
-      - 9093:8083
+      - 8083:8083
     environment:
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3307
@@ -74,7 +66,7 @@ services:
       context: ./serviceMetrics
       dockerfile: Dockerfile
     ports:
-      - 9094:8084
+      - 8084:8084
     environment:
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3307
