@@ -5,8 +5,8 @@ services:
     image: mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: docker_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=docker_db
     ports:
       - 3307:3307
     volumes:
@@ -31,10 +31,10 @@ services:
     ports:
       - 8081:8081
     environment:
-      - MYSQL_HOST=mysql_db
-      - MYSQL_PORT=3307
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql_db
   cube:
@@ -45,10 +45,10 @@ services:
     ports:
       - 8082:8082
     environment:
-      - MYSQL_HOST=mysql_db
-      - MYSQL_PORT=3307
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql_db
   fibonacci:
@@ -59,10 +59,10 @@ services:
     ports:
       - 8083:8083
     environment:
-      - MYSQL_HOST=mysql_db
-      - MYSQL_PORT=3307
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql_db
   metrics:
@@ -73,10 +73,10 @@ services:
     ports:
       - 8084:8084
     environment:
-      - MYSQL_HOST=mysql_db
-      - MYSQL_PORT=3307
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql_db
 volumes:
