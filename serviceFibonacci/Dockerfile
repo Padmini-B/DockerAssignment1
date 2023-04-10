@@ -1,14 +1,7 @@
-FROM openjdk:17 as buildstage
+FROM maven:3.8.2-jdk-8
+
 WORKDIR /fibonacci-docker
+COPY . .
+RUN mvn clean install
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-RUN chmod +x mvnw
-RUN ./mvnw package
-COPY target/*.jar fibonacci-docker.jar
-
-FROM openjdk:17
-COPY --from=buildstage /fibonacci-docker/fibonacci-docker.jar .
-ENTRYPOINT ["java","-jar","/fibonacci-docker.jar"]
+CMD mvn spring-boot:run
