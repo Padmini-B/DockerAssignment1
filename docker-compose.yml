@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   mysql_db:
     container_name: mysql_db
@@ -12,52 +13,95 @@ services:
     volumes:
       - db:/var/lib/mysql
   ui:
-    container_name: ui-service
-    build: 
-      context: ./serviceUI
-      dockerfile: Dockerfile
-    ports:
-      - 7070:7070
     depends_on:
       - square
       - cube
       - fibonacci
       - metrics
+    container_name: ui-service
+    build: ./serviceUI
+    restart: on-failure
+    ports:
+      - 7070:7070
   square:
+    depends_on:
+      - mysql_db
     container_name: square-service
-    build: 
-      context: ./serviceSquare
-      dockerfile: Dockerfile
+    build: ./serviceSquare
+    restart: on-failure
     ports:
       - 8081:8081
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysql_db:3307/docker_db?useSSL=false",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+  cube:
     depends_on:
       - mysql_db
-  cube:
     container_name: cube-service
-    build: 
-      context: ./serviceCube
-      dockerfile: Dockerfile
+    build: ./serviceCube
+    restart: on-failure
     ports:
       - 8082:8082
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysql_db:3307/docker_db?useSSL=false",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+  fibonacci:
     depends_on:
       - mysql_db
-  fibonacci:
     container_name: fibonacci-service
-    build: 
-      context: ./serviceFibonacci
-      dockerfile: Dockerfile
+    build: ./serviceFibonacci
+    restart: on-failure
     ports:
       - 8083:8083
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysql_db:3307/docker_db?useSSL=false",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+  metrics:
     depends_on:
       - mysql_db
-  metrics:
     container_name: metrics-service
-    build: 
-      context: ./serviceMetrics
-      dockerfile: Dockerfile
+    build: ./serviceMetrics
+    restart: on-failure
     ports:
       - 8084:8084
-    depends_on:
-      - mysql_db
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysql_db:3307/docker_db?useSSL=false",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
 volumes:
   db:
