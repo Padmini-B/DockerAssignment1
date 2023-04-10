@@ -1,14 +1,7 @@
-FROM openjdk:17 as buildstage
+FROM maven:3.8.2-jdk-8
+
 WORKDIR /cube-docker
+COPY . .
+RUN mvn clean install
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-RUN chmod +x mvnw
-RUN ./mvnw package
-COPY target/*.jar cube-docker.jar
-
-FROM openjdk:17
-COPY --from=buildstage /cube-docker/cube-docker.jar .
-ENTRYPOINT ["java","-jar","/cube-docker.jar"]
+CMD mvn spring-boot:run
