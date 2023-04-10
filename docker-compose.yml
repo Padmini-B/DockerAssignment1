@@ -43,11 +43,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8082:8082
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql_db
   fibonacci:
