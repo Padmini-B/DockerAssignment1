@@ -13,19 +13,17 @@ services:
     volumes:
       - db:/var/lib/mysql
   ui:
-    depends_on:
-      - square
-      - cube
-      - fibonacci
-      - metrics
     container_name: ui-service
     build: ./serviceUI
     restart: on-failure
     ports:
       - 7070:7070
-  square:
     depends_on:
-      - mysql_db
+      - square
+      - cube
+      - fibonacci
+      - metrics
+  square:
     container_name: square-service
     build: ./serviceSquare
     restart: on-failure
@@ -39,13 +37,9 @@ services:
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
       }'
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
-  cube:
     depends_on:
       - mysql_db
+  cube:
     container_name: cube-service
     build: ./serviceCube
     restart: on-failure
@@ -59,13 +53,9 @@ services:
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
       }'
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
-  fibonacci:
     depends_on:
       - mysql_db
+  fibonacci:
     container_name: fibonacci-service
     build: ./serviceFibonacci
     restart: on-failure
@@ -79,13 +69,9 @@ services:
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
       }'
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
-  metrics:
     depends_on:
       - mysql_db
+  metrics:
     container_name: metrics-service
     build: ./serviceMetrics
     restart: on-failure
@@ -99,9 +85,7 @@ services:
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
       }'
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
+    depends_on:
+      - mysql_db
 volumes:
   db:
