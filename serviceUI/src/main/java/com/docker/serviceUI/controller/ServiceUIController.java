@@ -23,7 +23,6 @@ public class ServiceUIController<Microservice> {
 		ModelAndView modelAndView = new ModelAndView("square");
 		System.out.println(square);
 	    modelAndView.addObject("response", "Square of " + num +": " +square);
-		//model.addAttribute("response", square);
 		modelAndView.setViewName("index.html");
 		return modelAndView;	
 	}
