@@ -1,0 +1,4 @@
+com\docker\serviceCube\entity\Cube.class
+com\docker\serviceCube\ServiceCubeApplication.class
+com\docker\serviceCube\controller\CubeController.class
+com\docker\serviceCube\repo\CubeRepo.class

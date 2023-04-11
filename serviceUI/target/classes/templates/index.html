@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>MicroservicesUI-Docker!!</title>
+	</head>
+	<body align="center" style="background-color:skyblue">
+		<form modelAttribute="microservice">
+			<h1>MicroservicesUI-Docker!!</h1>
+			<label style="font-size:20px">Input: </label><input type="text" name="num" style="width: 500px;padding: 12px 20px"/> <br><br>
+			<input type="submit" value="SQUARE" formaction="/square" style="padding: 10px 40px;border-radius: 4px;color:white;background-color: green"/> 
+			<input type="submit" value="CUBE" formaction="/cube" style="padding: 10px 45px;border-radius: 4px;color:white;background-color: green"/> 
+			<input type="submit" value="FIBONACCI" formaction="/fibonacci" style="padding: 10px 35px;border-radius: 4px;color:white;background-color:green "/> 
+			<input type="submit" value="METRICS" formaction="/metrics"style="padding: 10px 40px;border-radius: 4px;color: white;background-color: green" /></a><br><br>
+		</form>
+		<p th:text="${response}" style="font-size:30px"></p>
+	</body>
+</html>

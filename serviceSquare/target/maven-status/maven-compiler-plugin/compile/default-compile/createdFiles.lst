@@ -1,0 +1,4 @@
+com\docker\serviceSquare\repo\SquareRepo.class
+com\docker\serviceSquare\entity\Square.class
+com\docker\serviceSquare\controller\SquareController.class
+com\docker\serviceSquare\SeviceSquareApplication.class

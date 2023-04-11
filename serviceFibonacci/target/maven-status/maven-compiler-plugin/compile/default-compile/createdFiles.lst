@@ -1,0 +1,4 @@
+com\docker\serviceFibonacci\entity\Fibonacci.class
+com\docker\serviceFibonacci\repo\FibonacciRepo.class
+com\docker\serviceFibonacci\controller\FibonacciController.class
+com\docker\serviceFibonacci\ServiceFibonacciApplication.class
