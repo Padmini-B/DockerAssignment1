@@ -18,11 +18,6 @@ services:
     restart: on-failure
     ports:
       - 7070:7070
-    depends_on:
-      - square
-      - cube
-      - fibonacci
-      - metrics
   square:
     container_name: square-service
     build: ./serviceSquare
