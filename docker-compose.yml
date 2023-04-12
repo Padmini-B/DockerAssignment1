@@ -27,8 +27,6 @@ services:
     container_name: square-service
     build: ./serviceSquare
     restart: on-failure
-    ports:
-      - 8081:8081
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
       - SPRING_DATASOURCE_USERNAME=root
@@ -40,8 +38,6 @@ services:
     container_name: cube-service
     build: ./serviceCube
     restart: on-failure
-    ports:
-      - 8082:8082
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
       - SPRING_DATASOURCE_USERNAME=root
@@ -53,8 +49,6 @@ services:
     container_name: fibonacci-service
     build: ./serviceFibonacci
     restart: on-failure
-    ports:
-      - 8083:8083
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
       - SPRING_DATASOURCE_USERNAME=root
@@ -66,8 +60,6 @@ services:
     container_name: metrics-service
     build: ./serviceMetrics
     restart: on-failure
-    ports:
-      - 8084:8084
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/docker_db
       - SPRING_DATASOURCE_USERNAME=root
